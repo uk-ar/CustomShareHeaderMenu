@@ -1,0 +1,40 @@
+<extension>
+	<modules>
+		<!-- <module> -->
+		<!-- 	<id>New Content Module</id> -->
+		<!-- 	<components> -->
+		<!-- 		<component> -->
+    <!--       <region-id>footer</region-id> -->
+    <!--       <source-id>global</source-id> -->
+    <!--       <scope>global</scope> -->
+    <!--       <sub-components> -->
+    <!--         <sub-component id="New_Content" index= "25" > -->
+		<!-- 					<url>/tutorials/new-content</url> -->
+		<!-- 				</sub-component> -->
+    <!--       </sub-components> -->
+		<!-- 		</component> -->
+		<!-- 	</components> -->
+		<!-- </module> -->
+		<!-- <module> -->
+		<!-- 	<id>Custom DocumentList Widget</id> -->
+		<!-- 	<description>Instantiate a custom DocumentList widget</description> -->
+		<!-- 	<customizations> -->
+		<!-- 		<customization> -->
+		<!-- 			<targetPackageRoot>org.alfresco.components.documentlibrary -->
+		<!-- 			</targetPackageRoot> -->
+		<!-- 			<sourcePackageRoot>tutorials.customization</sourcePackageRoot> -->
+		<!-- 		</customization> -->
+		<!-- 	</customizations> -->
+		<!-- </module> -->
+		<module>
+      <id>Custom Share Header Menu</id>
+      <version>1.0</version>
+      <customizations>
+        <customization>
+          <targetPackageRoot>org.alfresco.share.header</targetPackageRoot>
+          <sourcePackageRoot>tutorials</sourcePackageRoot>
+        </customization>
+      </customizations>
+    </module>
+	</modules>
+</extension>
