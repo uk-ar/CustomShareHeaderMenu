@@ -1,0 +1,10 @@
+<webscript>
+	<shortname>Send Document in Email</shortname>
+	<description>Send document as an email attachment.
+	To test: curl -v -u admin:admin "http://localhost:8080/alfresco/service/mycompany/sendDocInEmail?nodeRef=workspace://SpacesStore/cbb63e68-9884-4d24-abb3-28aaf8677169&amp;userName=admin"
+	</description>
+	<url>/mycompany/sendDocInEmail?nodeRef={nodeRef}&amp;userName={userName}</url>
+	<format default="html"/>
+	<authentication>user</authentication>
+	<transaction>none</transaction>
+</webscript>

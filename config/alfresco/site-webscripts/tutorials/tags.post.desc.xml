@@ -1,0 +1,11 @@
+<webscript>
+  <shortname>Add tags</shortname>
+  <description>Add one or more tags to nodes
+Input:
+{"tags":[],"nodeRefs":[]}
+	</description>
+  <url>/tutorials/tags</url>
+  <format default="json"></format>
+	<authentication>user</authentication>
+  <transaction>required</transaction>
+</webscript>
