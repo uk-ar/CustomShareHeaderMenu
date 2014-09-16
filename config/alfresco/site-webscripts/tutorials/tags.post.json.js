@@ -8,7 +8,8 @@ function main()
     // Get the node from the URL
     // var pathSegments = url.match.split("/");
     // var reference = [ url.templateArgs.store_type, url.templateArgs.store_id ].concat(url.templateArgs.id.split("/"));
-    //http://docs.alfresco.com/4.1/references/api-ws-obj-json.html
+    // http://docs.alfresco.com/4.1/references/api-ws-obj-json.html
+    // https://wiki.alfresco.com/wiki/Web_Scripts#JSONArray
     var tags = json.getJSONArray("tags") //json.tags //json.getString("tags")
     var nodeRefs = json.getJSONArray("nodeRefs") //jsonUtils.toObject() //json.nodeRefs //json.getString("nodeRefs")
     for(var i = 0; i<nodeRefs.length(); i++){
