@@ -1,408 +1,138 @@
 <!-- This is a sample configuration file from Alfresco Community 4.2.b - Please adapt to your version -->
 <alfresco-config>
 
-   <!-- Global config section -->
-   <config replace="true">
-      <flags>
-         <!--
-            Developer debugging setting to turn on DEBUG mode for client scripts in the browser
-         -->
-         <client-debug>false</client-debug>
-
-         <!--
-            LOGGING can always be toggled at runtime when in DEBUG mode (Ctrl, Ctrl, Shift, Shift).
-            This flag automatically activates logging on page load.
-         -->
-         <client-debug-autologging>false</client-debug-autologging>
-      </flags>
-   </config>
-
-   <config evaluator="string-compare" condition="WebFramework">
-      <web-framework>
-         <!-- SpringSurf Autowire Runtime Settings -->
-         <!-- 
-              Developers can set mode to 'development' to disable; SpringSurf caches,
-              FreeMarker template caching and Rhino JavaScript compilation.
-         -->
-         <autowire>
-            <!-- Pick the mode: "production" or "development" -->
-            <mode>production</mode>
-         </autowire>
-
-         <!-- Allows extension modules with <auto-deploy> set to true to be automatically deployed -->
-         <module-deployment>
-            <mode>manual</mode>
-            <enable-auto-deploy-modules>true</enable-auto-deploy-modules>
-         </module-deployment>
-      </web-framework>
-   </config>
-
-   <config evaluator="string-compare" condition="Replication">
-      <share-urls>
-         <!--
-            To discover a Repository Id, browse to the remote server's CMIS landing page at:
-              http://{server}:{port}/alfresco/service/cmis/index.html
-            The Repository Id field is found under the "CMIS Repository Information" expandable panel.
-
-            Example config entry:
-              <share-url repositoryId="622f9533-2a1e-48fe-af4e-ee9e41667ea4">http://new-york-office:8080/share/</share-url>
-         -->
-      </share-urls>
-   </config>
-
-   <!-- Document Library config section -->
-   <config evaluator="string-compare" condition="DocumentLibrary" replace="true">
-
-      <tree>
-         <!--
-            Whether the folder Tree component should enumerate child folders or not.
-            This is a relatively expensive operation, so should be set to "false" for Repositories with broad folder structures.
-         -->
-         <evaluate-child-folders>false</evaluate-child-folders>
-         
-         <!--
-            Optionally limit the number of folders shown in treeview throughout Share.
-         -->
-         <maximum-folder-count>-1</maximum-folder-count>
-      </tree>
+  <!-- Global config section -->
+  <config replace="true">
+    <flags>
+      <!--
+          Developer debugging setting to turn on DEBUG mode for client scripts in the browser
+      -->
+      <client-debug>false</client-debug>
 
       <!--
-         Used by the "Manage Aspects" action
-
-         For custom aspects, remember to also add the relevant i18n string(s)
-            cm_myaspect=My Aspect
+          LOGGING can always be toggled at runtime when in DEBUG mode (Ctrl, Ctrl, Shift, Shift).
+          This flag automatically activates logging on page load.
       -->
-      <aspects>
-         <!-- Aspects that a user can see -->
-         <visible>
-            <aspect name="cm:generalclassifiable" />
-            <aspect name="cm:complianceable" />
-            <aspect name="cm:dublincore" />
-            <aspect name="cm:effectivity" />
-            <aspect name="cm:summarizable" />
-            <aspect name="cm:versionable" />
-            <aspect name="cm:templatable" />
-            <aspect name="cm:emailed" />
-            <aspect name="emailserver:aliasable" />
-            <aspect name="cm:taggable" />
-            <aspect name="app:inlineeditable" />
-            <aspect name="gd:googleEditable" />
-            <aspect name="cm:geographic" />
-            <aspect name="exif:exif" />
-         </visible>
+      <client-debug-autologging>false</client-debug-autologging>
+    </flags>
+  </config>
 
-         <!-- Aspects that a user can add. Same as "visible" if left empty -->
-         <addable>
-         </addable>
+  <config evaluator="string-compare" condition="WebFramework">
+    <web-framework>
+      <!-- SpringSurf Autowire Runtime Settings -->
+      <!-- 
+           Developers can set mode to 'development' to disable; SpringSurf caches,
+           FreeMarker template caching and Rhino JavaScript compilation.
+      -->
+      <autowire>
+        <!-- Pick the mode: "production" or "development" -->
+        <mode>production</mode>
+      </autowire>
 
-         <!-- Aspects that a user can remove. Same as "visible" if left empty -->
-         <removeable>
-         </removeable>
-      </aspects>
+      <!-- Allows extension modules with <auto-deploy> set to true to be automatically deployed -->
+      <module-deployment>
+        <mode>auto</mode>
+        <enable-auto-deploy-modules>true</enable-auto-deploy-modules>
+      </module-deployment>
+    </web-framework>
+  </config>
 
+  <!-- Document Library config section -->
+  <config evaluator="string-compare" condition="DocumentLibrary" replace="true">
+    <multi-select>
+			<action type="action-link" id="onActionDownload" label="menu.selected-items.download" />
+			<action type="action-link" id="onActionCopyTo" label="menu.selected-items.copy" />
+			<action type="action-link" id="onActionMoveTo" permission="Delete" label="menu.selected-items.move"/>
+			<action type="action-link" id="onActionDelete" permission="Delete" label="menu.selected-items.delete"/>
+		</multi-select>
+  </config>
+	<!-- todo: metadata template -->
+
+	<config evaluator="string-compare" condition="Social" replace="true">
+    <!-- Alfresco QuickShare social widget - for creating public url that can be shared -->
+    <quickshare>
       <!--
-         Used by the "Change Type" action
-
-         Define valid subtypes using the following example:
-            <type name="cm:content">
-               <subtype name="cm:mysubtype" />
-            </type>
-
-         Remember to also add the relevant i18n string(s):
-            cm_mysubtype=My SubType
+          Will be available as Alfresco.constants.QUICKSHARE_URL using javascrip in the browser.
+          If changing this, make sure this url matches the quickshare rule in urlrewrite.xml
       -->
-      <types>
-         <type name="cm:content">
-         </type>
+      <url>{context}/s/{sharedId}</url>
+    </quickshare>
 
-         <type name="cm:folder">
-         </type>
-      </types>
-
+    <!-- Alfresco LinkShare social widget - share a link to social sites -->
+    <linkshare>
       <!--
-         If set, will present a WebDAV link for the current item on the Document and Folder details pages.
-         Also used to generate the "View in Alfresco Explorer" action for folders.
+          These actions will be available as Alfresco.constants.LINKSHARE_ACTIONS using javascript in the browser.
+          Labels will be retrieved from msg key "linkshare.action.<id>.label" unless explicitly provided as an
+          attribute to the action element.
+          Each param value accepts the following input: {shareUrl}, {displayName} or a msg key that will be prefixed.
+          I.e. {body} for the email action's href param will be retrieved using "linkshare.action.email.body".
       -->
-      <repository-url>http://localhost:8080/alfresco</repository-url>
+      <action id="email" type="link" index="10">
+        <param name="href">mailto:?subject={subject}&amp;body={body}</param>
+        <param name="target">new</param>
+      </action>
+      <!-- <action id="facebook" type="link" index="20"> -->
+      <!--   <param name="href">https://www.facebook.com/sharer/sharer.php?u={shareUrl}&amp;t={message}</param> -->
+      <!--   <param name="target">new</param> -->
+      <!-- </action> -->
+      <!-- <action id="twitter" type="link" index="30"> -->
+      <!--   <param name="href">https://twitter.com/intent/tweet?text={message}&amp;url={shareUrl}</param> -->
+      <!--   <param name="target">new</param> -->
+      <!-- </action> -->
+      <!-- <action id="google-plus" type="link" index="40"> -->
+      <!--   <param name="href">https://plus.google.com/share?url={shareUrl}</param> -->
+      <!--   <param name="target">new</param> -->
+      <!-- </action> -->
+    </linkshare>
 
-      <!--
-         Google Docs™ integration
-      -->
-      <google-docs>
-         <!--
-            Enable/disable the Google Docs UI integration (Extra types on Create Content menu, Google Docs actions).
-         -->
-         <enabled>false</enabled>
+  </config>
+  <!-- Custom DocLibActions config section -->
+  <config evaluator="string-compare" condition="DocLibActions"> <!-- replace="true"> -->
+		<!-- https://docs.alfresco.com/4.1/concepts/doclib-override-extension-examples.html -->
+		<actions>
+			<action id="document-edit-offline">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-assign-workflow">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-publish">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-edit-offline">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-view-googledoc">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-checkout-to-googledocs">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-checkin-from-googledocs">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-assign-workflow">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-publish">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-view-googlemaps">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-cloud-sync">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-cloud-unsync">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-view-in-cloud">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+			<action id="document-request-sync">
+				<evaluator>evaluator.doclib.action.disableAction</evaluator>
+			</action>
+		</actions>
+  </config>
 
-         <!--
-            The mimetypes of documents Google Docs allows you to create via the Share interface.
-            The I18N label is created from the "type" attribute, e.g. google-docs.doc=Google Docs&trade; Document
-         -->
-         <creatable-types>
-            <creatable type="doc">application/msword</creatable>
-            <creatable type="xls">application/vnd.ms-excel</creatable>
-            <creatable type="ppt">application/vnd.ms-powerpoint</creatable>
-         </creatable-types>
-      </google-docs>
-
-      <!--
-         File upload configuration
-      -->
-      <file-upload>
-         <!--
-            Adobe Flash™
-            In certain environments, an HTTP request originating from Flash cannot be authenticated using an existing session.
-            See: http://bugs.adobe.com/jira/browse/FP-4830
-            For these cases, it is useful to disable the Flash-based uploader for Share Document Libraries.
-         -->
-         <adobe-flash-enabled>true</adobe-flash-enabled>
-      </file-upload>
-   </config>
-
-
-   <!-- Custom DocLibActions config section -->
-   <config evaluator="string-compare" condition="DocLibActions" replace="true">
-      <actionGroups>
-				<!-- from share-documentlibrary-config.xml -->
-				<actionGroup id="document-browse">
-          <action index="100" id="document-download" />
-          <action index="110" id="document-view-content" />
-          <action index="120" id="document-locate" />
-          <action index="130" id="document-edit-properties" />
-          <action index="140" id="document-upload-new-version" />
-          <action index="150" id="document-view-original" />
-          <action index="160" id="document-view-working-copy" />
-          <action index="170" id="document-approve" />
-          <action index="180" id="document-reject" />
-          <action index="190" id="document-inline-edit" />
-          <action index="200" id="document-edit-online" />
-          <!-- <action index="210" id="document-edit-offline" /> -->
-          <!-- <action index="220" id="document-view-googledoc" /> -->
-          <!-- <action index="230" id="document-checkout-to-googledocs" /> -->
-          <!-- <action index="240" id="document-checkin-from-googledocs" /> -->
-          <action index="250" id="document-copy-to" />
-          <action index="260" id="document-move-to" />
-          <action index="270" id="document-delete" />
-          <!-- <action index="280" id="document-assign-workflow" /> -->
-          <action index="290" id="document-cancel-editing" />
-          <action index="297" id="document-manage-granular-permissions" />
-          <!-- <action index="300" id="document-publish" /> -->
-          <!-- <action index="310" id="document-view-googlemaps" /> -->
-          <action index="320" id="document-view-in-source-repository" />
-          <!-- <action index="330" id="document-cloud-sync" /> -->
-          <!-- <action index="340" id="document-cloud-unsync" /> -->
-          <!-- <action index="350" id="document-view-in-cloud" /> -->
-          <action index="360" id="document-request-sync"/>
-					<!-- Simple Repo Actions -->
-          <!--
-							<action index="340" id="document-extract-metadata" />
-							<action index="350" id="document-increment-counter" />
-          -->
-
-          <!-- Dialog Repo Actions -->
-          <!--
-							<action index="360" id="document-transform" />
-							<action index="370" id="document-transform-image" />
-							<action index="380" id="document-execute-script" />
-          -->
-        </actionGroup>
-
-				<!-- from share-documentlibrary-config.xml -->
-				<actionGroup id="document-details">
-          <action index="100" id="document-download" />
-          <action index="110" id="document-view-content" />
-          <action index="120" id="document-edit-metadata" />
-          <action index="130" id="document-upload-new-version" />
-          <action index="140" id="document-view-original" />
-          <action index="150" id="document-view-working-copy" />
-          <action index="160" id="document-approve" />
-          <action index="170" id="document-reject" />
-          <action index="180" id="document-inline-edit" />
-          <action index="190" id="document-edit-online" />
-          <!-- <action index="200" id="document-edit-offline" /> -->
-          <!-- <action index="210" id="document-view-googledoc" /> -->
-          <!-- <action index="220" id="document-checkout-to-googledocs" /> -->
-          <!-- <action index="230" id="document-checkin-from-googledocs" /> -->
-          <action index="240" id="document-copy-to" />
-          <action index="250" id="document-move-to" />
-          <action index="260" id="document-delete" />
-          <!-- <action index="270" id="document-assign-workflow" /> -->
-          <action index="280" id="document-cancel-editing" />
-          <action index="290" id="document-manage-granular-permissions" />
-          <action index="300" id="document-manage-repo-permissions" />
-          <action index="310" id="document-manage-aspects" />
-          <action index="320" id="document-change-type" />
-          <action index="330" id="document-view-in-source-repository" />
-          <!-- <action index="340" id="document-publish" /> -->
-          <!-- <action index="350" id="document-view-googlemaps" /> -->
-          <!-- <action index="360" id="document-cloud-sync" /> -->
-          <!-- <action index="370" id="document-cloud-unsync" /> -->
-          <!-- <action index="380" id="document-view-in-cloud" /> -->
-          <!-- <action index="390" id="document-request-sync"/> -->
-        </actionGroup>
-
-      </actionGroups>
-   </config>
-
-   <!-- Global folder picker config section -->
-   <config evaluator="string-compare" condition="GlobalFolder">
-      <siteTree>
-         <container type="cm:folder">
-            <!-- Use a specific label for this container type in the tree -->
-            <rootLabel>location.path.documents</rootLabel>
-            <!-- Use a specific uri to retreive the child nodes for this container type in the tree -->
-            <uri>slingshot/doclib/treenode/site/{site}/{container}{path}?children={evaluateChildFoldersSite}&amp;max={maximumFolderCountSite}</uri>
-         </container>
-      </siteTree>
-   </config>
-
-   <!-- Repository Library config section -->
-   <config evaluator="string-compare" condition="RepositoryLibrary" replace="true">
-      <!--
-         Root nodeRef or xpath expression for top-level folder.
-         e.g. alfresco://user/home, /app:company_home/st:sites/cm:site1
-         If using an xpath expression, ensure it is properly ISO9075 encoded here.
-      -->
-      <root-node>alfresco://company/home</root-node>
-
-      <tree>
-         <!--
-            Whether the folder Tree component should enumerate child folders or not.
-            This is a relatively expensive operation, so should be set to "false" for Repositories with broad folder structures.
-         -->
-         <evaluate-child-folders>false</evaluate-child-folders>
-         
-         <!--
-            Optionally limit the number of folders shown in treeview throughout Share.
-         -->
-         <maximum-folder-count>500</maximum-folder-count>
-      </tree>
-   </config>
-   
-   <!-- Kerberos settings -->
-   <!-- To enable kerberos rename this condition to "Kerberos" -->
-   <config evaluator="string-compare" condition="KerberosDisabled" replace="true">
-      <kerberos>
-         <!--
-            Password for HTTP service account.
-            The account name *must* be built from the HTTP server name, in the format :
-               HTTP/<server_name>@<realm>
-            (NB this is because the web browser requests an ST for the
-            HTTP/<server_name> principal in the current realm, so if we're to decode
-            that ST, it has to match.)
-         -->
-         <password>secret</password>
-         <!--
-            Kerberos realm and KDC address.
-         -->
-         <realm>ALFRESCO.ORG</realm>
-         <!--
-            Service Principal Name to use on the repository tier.
-            This must be like: HTTP/host.name@REALM
-         -->
-         <endpoint-spn>HTTP/repository.server.com@ALFRESCO.ORG</endpoint-spn>
-         <!--
-            JAAS login configuration entry name.
-         -->
-         <config-entry>ShareHTTP</config-entry>
-      </kerberos>
-   </config>
-
-	<!-- example port config used to access remote Alfresco server (default is 8080) -->
-   <!--
-   <config evaluator="string-compare" condition="Remote">
-      <remote>
-         <endpoint>
-            <id>alfresco-noauth</id>
-            <name>Alfresco - unauthenticated access</name>
-            <description>Access to Alfresco Repository WebScripts that do not require authentication</description>
-            <connector-id>alfresco</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/s</endpoint-url>
-            <identity>none</identity>
-         </endpoint>
-
-         <endpoint>
-            <id>alfresco</id>
-            <name>Alfresco - user access</name>
-            <description>Access to Alfresco Repository WebScripts that require user authentication</description>
-            <connector-id>alfresco</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/s</endpoint-url>
-            <identity>user</identity>
-         </endpoint>
-
-         <endpoint>
-            <id>alfresco-feed</id>
-            <name>Alfresco Feed</name>
-            <description>Alfresco Feed - supports basic HTTP authentication via the EndPointProxyServlet</description>
-            <connector-id>http</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/s</endpoint-url>
-            <basic-auth>true</basic-auth>
-            <identity>user</identity>
-         </endpoint>
-         
-         <endpoint>
-            <id>activiti-admin</id>
-            <name>Activiti Admin UI - user access</name>
-            <description>Access to Activiti Admin UI, that requires user authentication</description>
-            <connector-id>activiti-admin-connector</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/activiti-admin</endpoint-url>
-            <identity>user</identity>
-         </endpoint>
-      </remote>
-   </config>
-	-->
-
-   <!-- 
-        Overriding endpoints to reference an Alfresco server with external SSO enabled
-        NOTE: If utilising a load balancer between web-tier and repository cluster, the "sticky
-              sessions" feature of your load balancer must be used.
-        NOTE: If alfresco server location is not localhost:8080 then also combine changes from the
-              "example port config" section below.
-        *Optional* keystore contains SSL client certificate + trusted CAs.
-        Used to authenticate share to an external SSO system such as CAS
-        Remove the keystore section if not required i.e. for NTLM.
-        
-        NOTE: For Kerberos SSO rename the "KerberosDisabled" condition above to "Kerberos"
-        
-        NOTE: For external SSO, switch the endpoint connector to "AlfrescoHeader" and set
-              the userHeader to the name of the HTTP header that the external SSO
-              uses to provide the authenticated user name.
-   -->
-   <!--
-   <config evaluator="string-compare" condition="Remote">
-      <remote>
-         <keystore>
-             <path>alfresco/web-extension/alfresco-system.p12</path>
-             <type>pkcs12</type>
-             <password>alfresco-system</password>
-         </keystore>
-         
-         <connector>
-            <id>alfrescoCookie</id>
-            <name>Alfresco Connector</name>
-            <description>Connects to an Alfresco instance using cookie-based authentication</description>
-            <class>org.alfresco.web.site.servlet.SlingshotAlfrescoConnector</class>
-         </connector>
-         
-         <connector>
-            <id>alfrescoHeader</id>
-            <name>Alfresco Connector</name>
-            <description>Connects to an Alfresco instance using header and cookie-based authentication</description>
-            <class>org.alfresco.web.site.servlet.SlingshotAlfrescoConnector</class>
-            <userHeader>SsoUserHeader</userHeader>
-         </connector>
-
-         <endpoint>
-            <id>alfresco</id>
-            <name>Alfresco - user access</name>
-            <description>Access to Alfresco Repository WebScripts that require user authentication</description>
-            <connector-id>alfrescoCookie</connector-id>
-            <endpoint-url>http://localhost:8080/alfresco/wcs</endpoint-url>
-            <identity>user</identity>
-            <external-auth>true</external-auth>
-         </endpoint>
-      </remote>
-   </config>
-   -->
-   
 </alfresco-config>
