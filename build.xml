@@ -21,7 +21,9 @@
 	
 	<target name="deploy-jar" depends="package-jar">
 		<copy file="${jar.file}" todir="${jar.deploy.dir}"/>
-		<copy file="share-config-custom.xml" todir="../allinone-project/runner/target/tomcat/webapps/share/WEB-INF/classes/alfresco/web-extension/"/>
+		<copy file="share-config-custom.xml" todir="../allinone-project/runner/target/tomcat/webapps/share/WEB-INF/classes/alfresco/web-extension/" overwrite="true"/>
+		<copy file="javascript-console-share-0.6.0-installable.jar" todir="../allinone-project/runner/target/tomcat/webapps/share/WEB-INF/lib" overwrite="true"/>
+		<copy file="javascript-console-repo-0.6.0-installable.jar" todir="../allinone-project/runner/target/tomcat/webapps/alfresco/WEB-INF/lib" overwrite="true"/>
 	</target>
 	
 	<target name="clean">
