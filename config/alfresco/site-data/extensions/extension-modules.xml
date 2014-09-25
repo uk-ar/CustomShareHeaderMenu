@@ -15,24 +15,50 @@
 		<!-- 		</component> -->
 		<!-- 	</components> -->
 		<!-- </module> -->
-		<!-- <module> -->
-		<!-- 	<id>Custom DocumentList Widget</id> -->
-		<!-- 	<description>Instantiate a custom DocumentList widget</description> -->
-		<!-- 	<customizations> -->
-		<!-- 		<customization> -->
-		<!-- 			<targetPackageRoot>org.alfresco.components.documentlibrary -->
-		<!-- 			</targetPackageRoot> -->
-		<!-- 			<sourcePackageRoot>tutorials.customization</sourcePackageRoot> -->
-		<!-- 		</customization> -->
-		<!-- 	</customizations> -->
-		<!-- </module> -->
+		<module>
+			<id>Custom Search</id>
+			<auto-deploy>true</auto-deploy>
+			<description>Instantiate a custom Search widget</description>
+			<customizations>
+				<customization>
+					<targetPackageRoot>org.alfresco.components.search
+					</targetPackageRoot>
+					<sourcePackageRoot>tutorials.search</sourcePackageRoot>
+				</customization>
+			</customizations>
+		</module>
+		<module>
+			<id>Custom DocumentList Widget</id>
+			<auto-deploy>true</auto-deploy>
+			<description>Instantiate a custom DocumentList widget</description>
+			<customizations>
+				<customization>
+					<targetPackageRoot>org.alfresco.components.documentlibrary
+					</targetPackageRoot>
+					<sourcePackageRoot>tutorials.documentlibrary</sourcePackageRoot>
+				</customization>
+			</customizations>
+		</module>
+		<module>
+			<id>Module  (Web View JavaScript controller change) </id>
+			<auto-deploy>true</auto-deploy>
+			<customizations>
+				<customization>
+					<targetPackageRoot>org.alfresco.components.dashlets</targetPackageRoot>
+					<sourcePackageRoot>tutorials.customization</sourcePackageRoot>
+				</customization>
+			</customizations>
+		</module>
 		<module>
       <id>Custom Share Header Menu</id>
+			<auto-deploy>true</auto-deploy>
       <version>1.0</version>
       <customizations>
         <customization>
           <targetPackageRoot>org.alfresco.share.header</targetPackageRoot>
           <sourcePackageRoot>tutorials</sourcePackageRoot>
+					<targetPackageRoot>org.alfresco.components.node-details</targetPackageRoot>
+					<sourcePackageRoot>tutorials</sourcePackageRoot>
         </customization>
       </customizations>
     </module>

@@ -3,7 +3,7 @@
 
 	<!-- Set these as required -->
 	<property name="jar.name" value="extension_modules.jar"/>	
-	<property name="jar.deploy.dir" value="/Users/yuuki/alf/allinone-project/runner/target/tomcat/webapps/share/WEB-INF/lib"/>
+	<property name="jar.deploy.dir" value="/Users/yuuki/alf/server/runner/target/tomcat/webapps/share/WEB-INF/lib"/>
 
 	<property name="project.dir" value="."/>
 	<property name="build.dir" value="${project.dir}/build"/>
@@ -21,10 +21,10 @@
 	
 	<target name="deploy-jar" depends="package-jar">
 		<copy file="${jar.file}" todir="${jar.deploy.dir}"/>
-		<copy file="share-config-custom.xml" todir="../allinone-project/runner/target/tomcat/webapps/share/WEB-INF/classes/alfresco/web-extension/" overwrite="true"/>
-		<copy file="javascript-console-share-0.6.0-installable.jar" todir="../allinone-project/runner/target/tomcat/webapps/share/WEB-INF/lib" overwrite="true"/>
-		<copy file="javascript-console-repo-0.6.0-installable.jar" todir="../allinone-project/runner/target/tomcat/webapps/alfresco/WEB-INF/lib" overwrite="true"/>
-		<copy file="presets.xml" todir="../allinone-project/runner/target/tomcat/webapps/share/WEB-INF/classes/alfresco/site-data/presets" overwrite="true"/>
+		<copy file="share-config-custom.xml" todir="../server/runner/target/tomcat/webapps/share/WEB-INF/classes/alfresco/web-extension/" overwrite="true"/>
+		<copy file="javascript-console-share-0.6.0-installable.jar" todir="../server/runner/target/tomcat/webapps/share/WEB-INF/lib" overwrite="true"/>
+		<copy file="javascript-console-repo-0.6.0-installable.jar" todir="../server/runner/target/tomcat/webapps/alfresco/WEB-INF/lib" overwrite="true"/>
+		<copy file="presets.xml" todir="../server/runner/target/tomcat/webapps/share/WEB-INF/classes/alfresco/site-data/presets" overwrite="true"/>
 	</target>
 	
 	<target name="clean">

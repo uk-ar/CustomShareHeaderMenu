@@ -59,6 +59,7 @@
 				<line index="40" id="categories" view="detailed" evaluator="evaluator.doclib.metadata.hasCategories">{categories}</line>
 				<!-- http://docs.alfresco.com/community/concepts/doclib-client-side-template-and-action-extensions.html -->
 				<!-- <line index="50" id="social" view="detailed">{social.favorite}</line> -->
+				<line index="50" id="social" view="detailed">{social}</line>
 			</template>
 		</metadata-templates>
   </config>

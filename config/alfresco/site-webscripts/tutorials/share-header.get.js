@@ -1,15 +1,14 @@
 //Find the "Sites" menu...
-   var sitesMenu = 
-     widgetUtils.findObject(model.jsonModel, "id", "HEADER_SITES_MENU");
-   if (sitesMenu != null)
-   {
-     // Change the widget to our custom menu...
-     // sitesMenu.name = "tutorials/sites-menu";
-   }
+var sitesMenu =
+        widgetUtils.findObject(model.jsonModel, "id", "HEADER_SITES_MENU");
+if (sitesMenu != null)
+{
+    // Change the widget to our custom menu...
+    // sitesMenu.name = "tutorials/sites-menu";
+}
 //widgetUtils.deleteObjectFromArray(model.jsonModel, "id", "HEADER_MY_FILES");
 //https://forums.alfresco.com/forum/installation-upgrades-configuration-integration/configuration/modifying-share-header-08252014
-var widget, widgetsToRemove = [ "HEADER_SHARED_FILES", "HEADER_MY_FILES", "HEADER_PEOPLE", "HEADER_TASKS", "HEADER_REPOSITORY",
-                                "HEADER_SEARCH", "HEADER_SITES_MENU" ], idx, max;
+var widget, widgetsToRemove = [ "HEADER_SHARED_FILES", "HEADER_MY_FILES", "HEADER_PEOPLE", "HEADER_TASKS" ], idx, max;
 
 if (user.istest1);
 
@@ -27,10 +26,8 @@ function findAndRemoveIn(obj, arrContext, arrIdx, id)
             {
                 if (arrContext !== null && arrIdx !== null)
                 { arrContext.splice(arrIdx, 1); }
-                
                 else
                 { logger.debug("Unexpected match outside of array structure: " + jsonUtils.toJSONString(obj)); }
-                
             }
             else
             {
@@ -38,7 +35,6 @@ function findAndRemoveIn(obj, arrContext, arrIdx, id)
                 {
                     if (obj.hasOwnProperty(key))
                     { findAndRemoveIn(obj[key], null, null, id); }
-                    
                 }
             }
         }
@@ -46,7 +42,6 @@ function findAndRemoveIn(obj, arrContext, arrIdx, id)
         {
             for (idx = 0, max = obj.length; idx < max; idx++)
             { findAndRemoveIn(obj[idx], obj, idx, id); }
-            
         }
     }
 }
